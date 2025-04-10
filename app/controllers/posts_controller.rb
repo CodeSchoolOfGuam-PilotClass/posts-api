@@ -7,7 +7,13 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(post_params)
+    # commented out strong params for now
+    # @post = Post.new(post_params)
+
+    @post = Post.new(
+      title: params[:title],
+      content: params[:content]
+    )
 
     if @post.save
       render json: @post, status: :created # Send back the created post with 201 status
@@ -16,9 +22,9 @@ class PostsController < ApplicationController
     end
   end
 
-  private
-    # Only allow a list of trusted parameters through for create/update.
-    def post_params
-      params.require(:post).permit(:title, :content)
-    end
+  # private
+  #   # Only allow a list of trusted parameters through for create/update.
+  #   def post_params
+  #     params.require(:post).permit(:title, :content)
+  #   end
 end
